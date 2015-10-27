@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ICGT Sports Tournament Registration</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+    <h1 style="text-align: center;">ICGT Sports Tournament Registration</h1>
+    <p>
+    </p>
+    <hr></hr>
+    <p>
+        
+    </p>
+    <form class="form-horizontal" onsubmit="return handleRegister()">
+        <fieldset>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="name">Name</label>
+                <div class="col-md-4">
+                    <input id="name" name="name" type="text" placeholder="shahrukh khan" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="gtid">GTID</label>
+                <div class="col-md-4">
+                    <input id="gtid" name="gtid" type="text" placeholder="90#######" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="email">Email</label>
+                <div class="col-md-4">
+                    <input id="email" name="email" type="text" placeholder="shahrukh.khan@shaadi.com" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="phone">Phone #</label>
+                <div class="col-md-4">
+                    <input id="phone" name="phone" type="text" placeholder="##########" class="form-control input-md" required="">
+                    <span class="help-block"> (no spaces, -'s or /'s)</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="genderselect">Gender</label>
+                <div class="col-md-4">
+                    <select id="genderselect" name="genderselect" class="form-control">
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Select Basic -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="memberselect">Are you a member?</label>
+                <div class="col-md-4">
+                    <select id="memberselect" name="memberselect" class="form-control" onchange="handleMemberSelect()">
+                        <option value="1" onclick="handleMemberSelect()">Yes</option>
+                        <option value="2" onclick="handleMemberSelect()">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Multiple Checkboxes -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="sport-select">Select Sports (max: 2)</label>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label for="sport-select-0">
+                            <input type="checkbox" name="sport-select" id="sport-select-0" value="1" onclick="handleCheckBoxes()">
+                            Basketball (Team Sport - Up to 5 members on a team)
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="sport-select-1">
+                            <input type="checkbox" name="sport-select" id="sport-select-1" value="2" onclick="handleCheckBoxes()">
+                            Soccer (Team Sport - Up to 8 members on a team)
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="sport-select-2">
+                            <input type="checkbox" name="sport-select" id="sport-select-2" value="3">
+                            Badminton
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="sport-select-3">
+                            <input type="checkbox" name="sport-select" id="sport-select-3" value="4">
+                            Table Tennis
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="sport-select-4">
+                            <input type="checkbox" name="sport-select" id="sport-select-4" value="5">
+                            Racquetball
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="sport-select-5">
+                            <input type="checkbox" name="sport-select" id="sport-select-5" value="6">
+                            Squash
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group" id="bball-team">
+                <label class="col-md-4 control-label" for="bballnum">Basketball Team</label>
+                <div class="col-md-4">
+                    <input id="bballnum" name="bballnum" type="text" placeholder="" class="form-control input-md">
+                    <span class="help-block">If you would like to join another team, enter the team captain's email here</span>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group" id="soccer-team">
+                <label class="col-md-4 control-label" for="soccerteamnum">Soccer Team</label>
+                <div class="col-md-4">
+                    <input id="soccerteamnum" name="soccerteamnum" type="text" placeholder="" class="form-control input-md">
+                    <span class="help-block">If you would like to join another team, enter the team captain's email here</span>
+                </div>
+            </div>
+            <div id="credit-card-section">
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <hr></hr>
+                    <p style="text-align: center;">Non-members will be charged $4.00 to participate.</p>
+                    <label class="col-md-4 control-label" for="card-holder-name">Card Holder Name</label>
+                    <div class="col-md-4">
+                        <input id="card-holder-name" name="card-holder-name" type="text" placeholder="Shahrukh Khan" class="form-control input-md">
+
+                    </div>
+                </div>
+
+                <!-- Search input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="card-number">Card Number</label>
+                    <div class="col-md-4">
+                        <input id="card-number" name="card-number" type="text" placeholder="################" class="form-control input-md">
+                        <p class="help-block">(no spaces or -'s)</p>
+                    </div>
+                </div>
+
+                <!-- Search input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="card-exp">Exp. Date</label>
+                    <div class="col-md-4">
+                        <input id="card-exp" name="card-exp" type="text" placeholder="MM/YYYY" class="form-control input-md">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="cvv">CVV</label>
+                    <div class="col-md-4">
+                        <input id="cvv" name="cvv" type="text" placeholder="###" class="form-control input-md">
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="register"></label>
+                <div class="col-md-4">
+                    <button id="register" name="register" class="btn btn-success">Register</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+    <script type="text/javascript">
+        $("#credit-card-section").hide();
+        $("#bball-team").hide();
+        $("#soccer-team").hide();
+    </script>
+</body>
+</html>
