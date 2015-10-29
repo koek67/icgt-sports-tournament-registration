@@ -92,8 +92,8 @@ function handleRegister() {
     }
 
     // check number of sports selected
-    if (getNumSelected() > 2) {
-        bootbox.alert("You many only select up to 2 sports");
+    if (getNumSelected() > 3) {
+        bootbox.alert("You many only select up to 3 sports");
         return false;
     }
 
@@ -119,7 +119,7 @@ function handleRegister() {
 
     // we are done vaidating the form
     // time to make the payment and push data
-    makePayment($("#card-number")[0].value, $("#card-holder-name")[0].value, $("#card-exp")[0].value, $("#cvc")[0].value);
+    //makePayment($("#card-number")[0].value, $("#card-holder-name")[0].value, $("#card-exp")[0].value, $("#cvc")[0].value);
     var data = {};
     data['name'] = $("#name")[0].value;
     data['gtid'] = $("#gtid")[0].value;
@@ -127,8 +127,9 @@ function handleRegister() {
     data['email'] = $("#email")[0].value;
     // 1-> male 2-> female
     data['gender'] = $("#genderselect")[0].value;
-
-    // compile the sports data
+    // 1-> Yes  2-> No
+    data['notifications'] = $('#wants-text')[0].value;
+    // compile and gather the sports data
     if ($("#sport-select-0")[0].checked) {
         data['basketball'] = 1;
     } else {
@@ -160,13 +161,37 @@ function handleRegister() {
         data['squash'] = 0;
     }
 
-
-
     if (member) {
         data['isMember'] = 1;
     } else {
         data['isMember'] = 0;
     }
 
-    //return false;
+    data['bball_team'] = $('#bballnum')[0].value;
+    data['soccer_team'] = $('#soccerteamnum')[0].value;
+    Stripe.setPublishableKey('pk_live_gG9lP6pyVLcDXBF9wvdpa437');
+
+    // now time to charge the card
+    Stripe.card.createToken({
+        number: $('#card-number')[0].value.trim(),
+        cvc: $('#cvv')[0].value.trim(),
+        exp_month: $('#card-exp')[0].value.split("/")[0],
+        exp_year: $('#card-exp')[0].value.split("/")[1]
+    }, function(status, response) {
+        if (response.error) {
+            bootbox.alert("Hmm looks like there is something wrong with the payment info.");
+        } else {
+            var token = response.id;
+            data['stripe_token'] = token;
+            $.post("/sports", JSON.stringify(data), function(d) {
+                if (d.success == true) {
+                    bootbox.alert("Got it! You have a ticket!");
+                }
+            });
+        }
+
+
+    });
+
+    return false;
 }
