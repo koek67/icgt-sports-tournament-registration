@@ -23,11 +23,15 @@ function handleMemberSelect() {
     var selection = document.getElementById("memberselect").selectedIndex;
     // selected that this person is a member
     if (selection == 0) {
-        $("#credit-card-section").hide()
+        $("#gtid-group").show(400, function() {
+            $("#credit-card-section").hide(400);
+        });
     }
     // not a member
     else {
-        $("#credit-card-section").show()
+        $("#credit-card-section").show(400, function() {
+            $("#gtid-group").hide(400);
+        })
     }
 }
 
@@ -37,17 +41,21 @@ function handleCheckBoxes() {
     // if bball is selected
     if ($("#sport-select-0")[0].checked) {
         // show the bball team input
-        $("#bball-team").show();
+        $("#bball-team").show(400);
     } else {
-        $("#bball-team").hide();
+        $("#bball-team").hide(400);
     }
 
     // if soccer is checked
     if ($("#sport-select-1")[0].checked) {
-        $("#soccer-team").show();
+        $("#soccer-team").show(400);
     } else {
-        $("#soccer-team").hide();
+        $("#soccer-team").hide(400);
     }
+}
+
+function handleTextMessages() {
+    
 }
 
 function isMember(gtid) {
@@ -121,10 +129,10 @@ function handleRegister() {
     // time to make the payment and push data
     //makePayment($("#card-number")[0].value, $("#card-holder-name")[0].value, $("#card-exp")[0].value, $("#cvc")[0].value);
     var data = {};
-    data['name'] = $("#name")[0].value;
-    data['gtid'] = $("#gtid")[0].value;
-    data['phone'] = $("#phone")[0].value;
-    data['email'] = $("#email")[0].value;
+    data['name'] = $("#name")[0].value.trim();
+    data['gtid'] = $("#gtid")[0].value.trim();
+    data['phone'] = $("#phone")[0].value.trim();
+    data['email'] = $("#email")[0].value.trim();
     // 1-> male 2-> female
     data['gender'] = $("#genderselect")[0].value;
     // 1-> Yes  2-> No
@@ -186,6 +194,9 @@ function handleRegister() {
             $.post("/sports", JSON.stringify(data), function(d) {
                 if (d.success == true) {
                     bootbox.alert("Got it! You have a ticket!");
+                } else {
+                    bootbox.alert("Hmm something went wrong");
+                    return false;
                 }
             });
         }
