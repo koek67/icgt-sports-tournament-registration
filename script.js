@@ -55,7 +55,12 @@ function handleCheckBoxes() {
 }
 
 function handleTextMessages() {
-    
+    // if yes, show the phone number
+    if ($('#wants-text')[0].value == 1) {
+        $('#phone-group').show(400);
+    } else {
+        $('#phone-group').hide(400);
+    }
 }
 
 function isMember(gtid) {
@@ -156,7 +161,7 @@ function handleRegister() {
     if ($("#sport-select-3")[0].checked) {
         data['table-tennis'] = 1;
     } else {
-        data['table-tennis'] = 0;
+        data['table_tennis'] = 0;
     }
     if ($("#sport-select-4")[0].checked) {
         data['raquetball'] = 1;

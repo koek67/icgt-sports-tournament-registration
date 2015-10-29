@@ -40,15 +40,6 @@
                 </div>
             </div>
 
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="phone">Phone #</label>
-                <div class="col-md-4">
-                    <input id="phone" name="phone" type="text" placeholder="##########" class="form-control input-md" required="">
-                    <span class="help-block"> (no spaces, -'s or /'s)</span>
-                </div>
-            </div>
-
             <div class="form-group">
                 <label class="col-md-4 control-label" for="genderselect">Gender</label>
                 <div class="col-md-4">
@@ -134,11 +125,20 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="wants-text">Textual Reminders?</label>
                 <div class="col-md-4">
-                    <select id="wants-text" name="wants-text" class="form-control">
+                    <select id="wants-text" name="wants-text" class="form-control" onchange="handleTextMessages()">
                         <option value="1">Yes</option>
                         <option value="2">No</option>
                     </select>
                     <p class="help-block">We can remind you 15 minutes prior to your event that you have a game coming up</p>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group" id="phone-group">
+                <label class="col-md-4 control-label" for="phone">Phone #</label>
+                <div class="col-md-4">
+                    <input id="phone" name="phone" type="text" placeholder="##########" class="form-control input-md" required="">
+                    <span class="help-block"> (no spaces, -'s or /'s)</span>
                 </div>
             </div>
 
